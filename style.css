@@ -1,0 +1,480 @@
+:root {
+  --primary-red: #b91d24;
+  --dark-red: #8a151b;
+  --text-dark: #333;
+  --text-grey: #666;
+  --bg-light-grey: #f4f4f4;
+  --bg-pill-grey: #e0e0e0;
+  --success-green: #27ae60;
+
+  /* Configuração de layout */
+  --slide-padding: 40px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  background-color: var(--bg-light-grey);
+  height: 100vh;
+  overflow: hidden; /* Esconde barras de rolagem */
+  display: flex;
+  flex-direction: column;
+}
+
+#dashboard-container {
+  flex: 1;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: white;
+}
+
+/* --- Estrutura do Slide --- */
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: var(--slide-padding);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.8s ease-in-out, visibility 0.8s;
+  display: flex;
+  flex-direction: column;
+}
+
+.slide.active {
+  opacity: 1;
+  visibility: visible;
+  z-index: 10;
+}
+
+.loading-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 2rem;
+  color: var(--text-grey);
+}
+
+/* --- Cabeçalho Padrão dos Slides --- */
+.slide-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 40px;
+}
+
+.header-titles h1 {
+  color: var(--primary-red);
+  font-weight: 800;
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+.header-titles h2 {
+  color: var(--text-grey);
+  font-weight: 600;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+
+.header-date-info {
+  text-align: right;
+  font-weight: 600;
+  color: var(--text-dark);
+  font-size: 1.1rem;
+}
+.header-date-info .month {
+  color: var(--text-grey);
+}
+
+/* ================= TIPO: INTRO ================= */
+.slide-intro-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.intro-title {
+  font-size: 4rem;
+  font-weight: 800;
+  color: var(--primary-red);
+  margin-bottom: 20px;
+}
+.intro-subtitle {
+  font-size: 2rem;
+  color: var(--text-grey);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* ================= TIPO: RANKING (Barra de Progresso Dinâmica) ================= */
+
+.ranking-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.ranking-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px 80px;
+  width: 90%;
+  max-width: 1100px;
+}
+
+/* O container da pílula (Fundo Cinza) */
+.ranking-pill {
+  position: relative;
+  height: 100px;
+  background-color: #e0e0e0; /* Fundo cinza base */
+  border-radius: 60px;
+  display: flex;
+  align-items: center;
+  padding-left: 110px;
+  padding-right: 40px;
+  justify-content: space-between;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden; /* Garante que a barra não vaze as bordas arredondadas */
+  z-index: 0;
+}
+
+/* A Barra Vermelha que cresce */
+.progress-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: var(--primary-red);
+  z-index: -1; /* Fica atrás do texto e avatar */
+  border-radius: 0; /* O pai já arredonda */
+  transition: width 1.5s ease-out; /* Animação de preenchimento */
+}
+
+/* Avatar */
+.rank-avatar {
+  position: absolute;
+  left: 10px;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: 4px solid white;
+  object-fit: cover;
+  z-index: 2; /* Fica acima de tudo */
+  background: #fff;
+}
+
+/* Texto (Nome e Valor) */
+.rank-name,
+.rank-value {
+  position: relative;
+  z-index: 1; /* Fica acima da barra vermelha */
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  transition: color 0.3s;
+}
+
+/* Classe utilitária para mudar a cor do texto quando a barra passa por baixo */
+/* (Opcional: Se quiser que o texto fique branco quando tiver barra vermelha atrás) */
+.text-white {
+  color: #ffffff !important;
+}
+
+/* ================= TIPO: CHART (Positivação Stacked - Corrigido) ================= */
+
+/* Container principal do slide do gráfico */
+.chart-slide-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 20px;
+}
+
+/* Área principal onde o gráfico é desenhado */
+.chart-body {
+  position: relative;
+  width: 90%;
+  max-width: 800px;
+  height: 400px; /* ALTURA FIXA NECESSÁRIA para as porcentagens funcionarem */
+  margin-top: 30px;
+  border-bottom: 2px solid #e0e0e0; /* Linha base (zero) */
+  /* Espaço na esquerda para os números do eixo Y */
+  margin-left: 40px;
+}
+
+/* --- CAMADA 1: O Grid (Fundo) --- */
+.chart-grid-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0; /* Fica atrás */
+}
+
+.grid-line-wrapper {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  /* A altura será definida via JS (bottom: X%) */
+}
+
+.grid-line {
+  width: 100%;
+  border-top: 1px solid #e0e0e0;
+}
+
+.grid-label-y {
+  position: absolute;
+  left: -40px; /* Puxa para fora do gráfico à esquerda */
+  top: -10px; /* Centraliza verticalmente com a linha */
+  width: 30px;
+  text-align: right;
+  font-weight: 600;
+  color: var(--text-grey);
+  font-size: 0.9rem;
+}
+
+/* Container onde as barras vivem */
+.chart-bars-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  display: flex;
+  justify-content: space-around; /* Espalha as colunas */
+  align-items: flex-end; /* IMPORTANTE: Faz as barras nascerem do chão */
+  padding: 0 20px; /* Margem lateral interna */
+}
+
+/* O wrapper de uma coluna individual */
+.single-column-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+  width: 60px; /* Largura fixa da barra */
+  position: relative;
+}
+
+/* O "corpo" visual da barra (contém as cores) */
+.stacked-bar-visual {
+  width: 100%;
+  display: flex;
+  flex-direction: column; /* Empilha verticalmente */
+  /* A altura será definida pelo JS via style="height: X%" */
+  transition: height 1s ease-out; /* Animação suave de crescimento */
+}
+
+/* Pedaços da barra */
+.bar-segment {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.segment-top-falta {
+  background-color: #666666; /* Cinza */
+  border-radius: 6px 6px 0 0; /* Arredonda topo */
+  /* Altura definida pelo JS */
+}
+
+.segment-bottom-feito {
+  background-color: #b91d24; /* Vermelho */
+  border-radius: 0 0 0 0;
+  /* Altura definida pelo JS */
+}
+
+/* Textos */
+.col-label-top {
+  margin-bottom: 5px;
+  font-weight: 800;
+  color: #333;
+}
+
+.col-label-bottom {
+  position: absolute;
+  bottom: -30px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #000;
+}
+
+/* ================= LEGENDA DO GRÁFICO (Bolinhas) ================= */
+
+/* Container da legenda acima do gráfico */
+.chart-legend {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px; /* Distância entre "Feito" e "Falta" */
+  margin-bottom: 25px; /* Espaço entre a legenda e o topo das barras */
+  font-weight: 600;
+  color: var(--text-dark);
+  font-size: 1.1rem;
+}
+
+/* Cada item da legenda (Bolinha + Texto) */
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Distância entre a bolinha e o texto */
+}
+
+/* Estilo base da bolinha */
+.dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* Cores específicas */
+.dot-red {
+  background-color: var(
+    --primary-red
+  ); /* Usa a mesma cor vermelha das barras */
+}
+
+.dot-grey {
+  background-color: #666666; /* Usa a mesma cor cinza das barras */
+}
+/* ================= TIPO: TABLE (Horários) ================= */
+.table-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+  border: 2px solid #e0e0e0;
+}
+
+.table-grid {
+  display: grid;
+  /* Grid: Coluna Nome (2 partes) + 5 Colunas Dias (1 parte cada) */
+  grid-template-columns: 2fr repeat(5, 1fr);
+}
+
+.grid-header {
+  background: #e0e0e0;
+  padding: 15px;
+  text-align: center;
+  font-weight: 800;
+  color: var(--text-dark);
+}
+.grid-row-name {
+  background: #f9f9f9;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  color: var(--primary-red);
+  border-top: 1px solid #e0e0e0;
+}
+.grid-cell {
+  background: white;
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid #e0e0e0;
+  border-left: 1px solid #e0e0e0;
+  font-size: 1.5rem;
+}
+
+.status-ok {
+  color: var(--success-green);
+}
+.status-x {
+  color: var(--primary-red);
+}
+.status-vacation {
+  color: var(--text-grey);
+}
+
+/* ================= TIPO: WINNER ================= */
+.winner-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.crown-icon {
+  font-size: 4rem;
+  color: var(--primary-red);
+  margin-bottom: 20px;
+}
+.winner-photo-container {
+  position: relative;
+  margin-bottom: 30px;
+}
+.winner-photo {
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  border: 8px solid #e0e0e0;
+  object-fit: cover;
+}
+.winner-badge {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: var(--primary-red);
+  color: white;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 800;
+  border: 4px solid white;
+}
+.winner-name {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin-bottom: 10px;
+}
+.winner-points {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--primary-red);
+}
+
+/* --- Barra de Progresso --- */
+.progress-bar-container {
+  height: 8px;
+  background: #e0e0e0;
+  width: 100%;
+}
+#progress-bar {
+  height: 100%;
+  background: var(--primary-red);
+  width: 0%;
+}

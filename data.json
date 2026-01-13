@@ -1,0 +1,79 @@
+{
+  "config": {
+    "rotationSpeedMs": 5000,
+    "headerMonth": "MÊS: JANEIRO",
+    "headerWeek": "1ª Semana"
+  },
+  "slides": [
+    {
+      "type": "intro",
+      "title": "RELATÓRIO DE RESULTADOS",
+      "subtitle": "Acompanhamento Semanal",
+      "icon": "fa-chart-line"
+    },
+    {
+      "type": "ranking",
+      "title": "RANKING",
+      "subtitle": "META INDIVIDUAL",
+      "data": [
+        {
+          "name": "Johns",
+          "value": "270%",
+          "photoUrl": "https://ui-avatars.com/api/?name=Johns&background=b91d24&color=fff",
+          "highlight": true
+        },
+        {
+          "name": "Cleidy",
+          "value": "94%",
+          "photoUrl": "https://ui-avatars.com/api/?name=Cleidy&background=cfcfcf&color=333",
+          "highlight": false
+        },
+        {
+          "name": "Marcondes",
+          "value": "49%",
+          "photoUrl": "https://ui-avatars.com/api/?name=Marcondes&background=cfcfcf&color=333",
+          "highlight": false
+        },
+        {
+          "name": "Bruno",
+          "value": "19%",
+          "photoUrl": "https://ui-avatars.com/api/?name=Bruno&background=cfcfcf&color=333",
+          "highlight": false
+        }
+      ]
+    },
+    {
+      "type": "chart",
+      "title": "POSITIVAÇÃO",
+      "subtitle": "FEITO vs TOTAL",
+      "chartScaleMax": 30,
+      "data": [
+        { "name": "Bruno", "done": 3, "total": 15 },
+        { "name": "Cleidy", "done": 7, "total": 18 },
+        { "name": "Johns", "done": 5, "total": 17 },
+        { "name": "Marcondes", "done": 11, "total": 26 }
+      ]
+    },
+    {
+      "type": "table",
+      "title": "HORÁRIO DE ENTRADA",
+      "columns": ["SEG", "TER", "QUA", "QUI", "SEX"],
+      "rows": [
+        { "name": "Bruno", "status": ["ok", "ok", "ok", "ok", "ok"] },
+        {
+          "name": "Cleidy",
+          "status": ["vacation", "vacation", "vacation", "vacation", "vacation"]
+        },
+        { "name": "Johns", "status": ["ok", "ok", "ok", "ok", "ok"] },
+        { "name": "Marcondes", "status": ["ok", "ok", "ok", "x", "ok"] }
+      ]
+    },
+    {
+      "type": "winner",
+      "title": "CAMPEÃO DE VENDAS",
+      "winnerName": "Marcondes Mateus",
+      "winnerPoints": "14 PONTOS",
+      "photoUrl": "https://ui-avatars.com/api/?name=Marcondes+Mateus&background=b91d24&color=fff&size=250"
+    }
+  ]
+}
