@@ -6,12 +6,14 @@
   },
   "slides": [
     {
+      "id": "1",
       "type": "intro",
       "title": "RELATÓRIO DE RESULTADOS",
       "subtitle": "Acompanhamento Semanal",
       "icon": "fa-chart-line"
     },
     {
+      "id": "2",
       "type": "ranking",
       "title": "RANKING",
       "subtitle": "META INDIVIDUAL",
@@ -25,24 +27,25 @@
         {
           "name": "Cleidy",
           "value": "94%",
-          "photoUrl": "https://ui-avatars.com/api/?name=Cleidy&background=cfcfcf&color=333",
+          "photoUrl": "https://ui-avatars.com/api/?name=Cleidy&background=e0e0e0&color=333",
           "highlight": false
         },
         {
           "name": "Marcondes",
           "value": "49%",
-          "photoUrl": "https://ui-avatars.com/api/?name=Marcondes&background=cfcfcf&color=333",
+          "photoUrl": "https://ui-avatars.com/api/?name=Marcondes&background=e0e0e0&color=333",
           "highlight": false
         },
         {
           "name": "Bruno",
           "value": "19%",
-          "photoUrl": "https://ui-avatars.com/api/?name=Bruno&background=cfcfcf&color=333",
+          "photoUrl": "https://ui-avatars.com/api/?name=Bruno&background=e0e0e0&color=333",
           "highlight": false
         }
       ]
     },
     {
+      "id": "3",
       "type": "chart",
       "title": "POSITIVAÇÃO",
       "subtitle": "FEITO vs TOTAL",
@@ -55,25 +58,104 @@
       ]
     },
     {
+      "id": "4",
+      "type": "intro",
+      "title": "PRIMÍCIA DA PREMIAÇÃO",
+      "subtitle": "DA META PRÊMIO",
+      "icon": "fa-trophy"
+    },
+    {
+      "id": "5",
       "type": "table",
       "title": "HORÁRIO DE ENTRADA",
       "columns": ["SEG", "TER", "QUA", "QUI", "SEX"],
       "rows": [
-        { "name": "Bruno", "status": ["ok", "ok", "ok", "ok", "ok"] },
+        { "name": "Bruno", "data": ["ok", "ok", "ok", "ok", "ok"] },
         {
           "name": "Cleidy",
-          "status": ["vacation", "vacation", "vacation", "vacation", "vacation"]
+          "data": ["vacation", "vacation", "vacation", "vacation", "vacation"]
         },
-        { "name": "Johns", "status": ["ok", "ok", "ok", "ok", "ok"] },
-        { "name": "Marcondes", "status": ["ok", "ok", "ok", "x", "ok"] }
+        { "name": "Johns", "data": ["ok", "ok", "ok", "ok", "ok"] },
+        { "name": "Marcondes", "data": ["ok", "ok", "ok", "x", "ok"] }
       ]
     },
     {
+      "id": "6",
+      "type": "intro",
+      "title": "PREMIAÇÕES DA SEMANA",
+      "subtitle": "",
+      "icon": "fa-medal"
+    },
+    {
+      "id": "7",
+      "type": "meta-table",
+      "title": "META SEMANAL",
+      "columns": ["1º", "2º", "3º", "4º", "5º"],
+      "rows": [
+        { "name": "Bruno", "data": ["0%", "0%", "0%", "0%", "0%"] },
+        { "name": "Cleidy", "data": ["0%", "0%", "0%", "0%", "0%"] },
+        { "name": "Johns", "data": ["BATEU", "0%", "0%", "0%", "0%"] },
+        { "name": "Marcondes", "data": ["48%", "0%", "0%", "0%", "0%"] }
+      ]
+    },
+    {
+      "id": "8",
       "type": "winner",
       "title": "CAMPEÃO DE VENDAS",
       "winnerName": "Marcondes Mateus",
       "winnerPoints": "14 PONTOS",
       "photoUrl": "https://ui-avatars.com/api/?name=Marcondes+Mateus&background=b91d24&color=fff&size=250"
+    },
+    {
+      "id": "9",
+      "type": "champion-panel",
+      "theme": "red",
+      "title": "PAINEL DO CAMPEÃO DE VENDAS",
+      "chartData": [
+        { "label": "Marcondes Mateus", "value": 14, "highlight": true },
+        { "label": "Johns Alexandre", "value": 8, "highlight": false },
+        { "label": "Nádia Rodrigues", "value": 2, "highlight": false },
+        { "label": "Bruno Windson", "value": 1, "highlight": false },
+        { "label": "Cleidy Cordeiro", "value": 1, "highlight": false }
+      ],
+      "weeksData": [
+        {
+          "week": "1ª SEMANA",
+          "name": "MARCONDES",
+          "points": "14 PONTOS",
+          "photo": "https://ui-avatars.com/api/?name=Marcondes&background=fff&color=333",
+          "active": true
+        },
+        {
+          "week": "2ª SEMANA",
+          "name": "CONSULTOR",
+          "points": "X PONTOS",
+          "active": false
+        },
+        {
+          "week": "3ª SEMANA",
+          "name": "CONSULTOR",
+          "points": "XXXXXXX",
+          "active": false
+        },
+        {
+          "week": "4ª SEMANA",
+          "name": "CONSULTOR",
+          "points": "XXXXXXX",
+          "active": false
+        },
+        {
+          "week": "5ª SEMANA",
+          "name": "CONSULTOR",
+          "points": "XXXXXXX",
+          "active": false
+        }
+      ]
+    },
+    {
+      "id": "10",
+      "type": "outro",
+      "title": "OBRIGADO!"
     }
   ]
 }
